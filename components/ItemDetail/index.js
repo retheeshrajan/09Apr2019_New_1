@@ -24,7 +24,7 @@ import CartStore from "../../stores/cartStore";
 // Components
 import CartButton from "../CartButton";
 
-class CoffeeDetail extends Component {
+class ItemDetail extends Component {
   state = {
     drink: "Cappuccino",
     option: "Small"
@@ -56,20 +56,20 @@ class CoffeeDetail extends Component {
   };
 
   render() {
-    const coffeeshop = this.props.navigation.getParam("shop", {});
+    const item = this.props.navigation.getParam("shop", {});
     return (
       <Content>
         <List>
           <ListItem style={styles.top}>
             <Left>
               <Text style={styles.text}>
-                {coffeeshop.name + "\n"}
-                <Text note>{coffeeshop.location}</Text>
+                {item.name + "\n"}
+                <Text note>{item.location}</Text>
               </Text>
             </Left>
             <Body />
             <Right>
-              <Thumbnail bordered source={{ uri: coffeeshop.img }} />
+              <Thumbnail bordered source={{ uri: item.img }} />
             </Right>
           </ListItem>
           <ListItem style={{ borderBottomWidth: 0 }}>
@@ -109,4 +109,4 @@ class CoffeeDetail extends Component {
   }
 }
 
-export default observer(CoffeeDetail);
+export default observer(ItemDetail);

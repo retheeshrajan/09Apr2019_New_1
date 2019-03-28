@@ -12,7 +12,7 @@ class CartButton extends Component {
       <Button
         light
         transparent
-        onPress={() => this.props.navigation.navigate("CoffeeCart")}
+        onPress={() => this.props.navigation.navigate("ItemCart")}
       >
         <Text>
           {CartStore.quantity + " "}

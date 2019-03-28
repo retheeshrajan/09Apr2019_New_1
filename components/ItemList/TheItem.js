@@ -10,18 +10,18 @@ import styles from "./styles";
 // Navigation
 import { withNavigation } from "react-navigation";
 
-class CoffeeItem extends Component {
+class TheItem extends Component {
   handlePress = () => {
-    this.props.navigation.navigate("CoffeeDetail", {
-      shop: this.props.coffeeShop
+    this.props.navigation.navigate("ItemDetail", {
+      item: this.props.item
     });
   };
 
   render() {
-    const { coffeeShop } = this.props;
+    const { item } = this.props;
     return (
       <ImageBackground
-        source={{ uri: coffeeShop.background }}
+        source={{ uri: item.background }}
         style={styles.background}
       >
         <View style={styles.overlay} />
@@ -31,12 +31,12 @@ class CoffeeItem extends Component {
               <Left>
                 <Thumbnail
                   bordered
-                  source={{ uri: coffeeShop.img }}
+                  source={{ uri: item.image }}
                   style={styles.thumbnail}
                 />
-                <Text style={styles.text}>{coffeeShop.name}</Text>
+                <Text style={styles.text}>{item.name}</Text>
                 <Text note style={styles.text}>
-                  {coffeeShop.distance}
+                  {item.price}
                 </Text>
               </Left>
             </CardItem>
@@ -47,4 +47,4 @@ class CoffeeItem extends Component {
   }
 }
 
-export default withNavigation(CoffeeItem);
+export default withNavigation(TheItem);

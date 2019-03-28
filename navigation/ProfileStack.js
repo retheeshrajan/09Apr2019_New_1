@@ -2,21 +2,21 @@ import { createStackNavigator } from "react-navigation";
 
 import ProfileScreen from "../components/Profile";
 import React from "react";
-import CoffeeList from "../components/CoffeeList";
-import CoffeeDetail from "../components/CoffeeDetail";
-import CoffeeCart from "../components/CoffeeCart";
+import ItemList from "../components/ItemList";
+import ItemDetail from "../components/ItemDetail";
+import ItemCart from "../components/ItemCart";
 import LoginScreen from "../components/Login";
 import { Icon } from "native-base";
 const ProfileStack = createStackNavigator(
   {
-    CoffeeList: CoffeeList,
-    CoffeeDetail: CoffeeDetail,
-    CoffeeCart: CoffeeCart,
+    ItemList: ItemList,
+    ItemDetail: ItemDetail,
+    ItemCart: ItemCart,
     Profile: ProfileScreen,
     Login: LoginScreen
   },
   {
-    initialRouteName: "CoffeeList",
+    initialRouteName: "ItemList",
     defaultNavigationOptions: {
       title: "WhatTheShop"
     }

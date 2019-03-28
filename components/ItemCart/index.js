@@ -10,7 +10,7 @@ import CartItem from "./CartItem";
 //Store
 import CartStore from "../../stores/cartStore";
 
-class CoffeeCart extends Component {
+class ItemCart extends Component {
   render() {
     const items = CartStore.items;
     let cartItems;
@@ -29,4 +29,4 @@ class CoffeeCart extends Component {
   }
 }
 
-export default observer(CoffeeCart);
+export default observer(ItemCart);
