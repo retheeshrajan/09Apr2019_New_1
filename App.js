@@ -1,9 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import AppContainer from "./navigation/BottomTab";
+import AppContainer from ".././WhatTheShop2.0-FrontEnd/navigation/BottomTab";
 
-export default class App extends React.Component {
+class App extends React.Component {
+  state = { loading: true };
+
+  async componentDidMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+    this.setState({ loading: false });
+  }
+
   render() {
+    if (this.state.loading) return <Text>Loading...</Text>;
     return <AppContainer />;
   }
 }
@@ -16,3 +27,5 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+export default App;
