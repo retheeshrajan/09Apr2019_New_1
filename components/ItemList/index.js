@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import { ScrollView, View } from "react-native";
 
 // NativeBase Components
 import { List, Content } from "native-base";
@@ -26,7 +27,11 @@ class ItemList extends Component {
     }
     return (
       <Content>
-        <List>{myItems}</List>
+        <View>
+          <ScrollView>
+            <List>{myItems}</List>
+          </ScrollView>
+        </View>
       </Content>
     );
   }
