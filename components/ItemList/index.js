@@ -15,13 +15,14 @@ class ItemList extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Item List",
     headerLeft: null,
+    headerStyle: { backgroundColor: "#abc" },
     headerRight: <CartButton />
   });
   render() {
     const items = itemStore.items;
     let myItems;
     if (items) {
-      myItems = items.map(item => <TheItem item={item} key={item.id} />);
+      myItems = items.map(item => <TheItem item={item} key={item.name} />);
     }
     return (
       <Content>

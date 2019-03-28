@@ -7,6 +7,7 @@ import ItemDetail from "../components/ItemDetail";
 import ItemCart from "../components/ItemCart";
 import LoginScreen from "../components/Login";
 import { Icon } from "native-base";
+
 const ProfileStack = createStackNavigator(
   {
     ItemList: ItemList,
@@ -19,7 +20,8 @@ const ProfileStack = createStackNavigator(
     initialRouteName: "ItemList",
     defaultNavigationOptions: {
       title: "WhatTheShop"
-    }
+    },
+    headerStyle: { backgroundColor: "#00ff00" }
   }
 );
 

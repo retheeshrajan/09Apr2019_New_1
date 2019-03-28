@@ -31,7 +31,7 @@ class ItemDetail extends Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("shop", {}).name,
+    title: navigation.getParam("item", {}).name,
     headerRight: <CartButton />
   });
 
@@ -56,7 +56,7 @@ class ItemDetail extends Component {
   };
 
   render() {
-    const item = this.props.navigation.getParam("shop", {});
+    const item = this.props.navigation.getParam("item", {});
     return (
       <Content>
         <List>
@@ -64,42 +64,15 @@ class ItemDetail extends Component {
             <Left>
               <Text style={styles.text}>
                 {item.name + "\n"}
-                <Text note>{item.location}</Text>
+                <Text note>{item.description}</Text>
               </Text>
             </Left>
             <Body />
             <Right>
-              <Thumbnail bordered source={{ uri: item.img }} />
+              <Thumbnail bordered source={{ uri: item.image }} />
             </Right>
           </ListItem>
-          <ListItem style={{ borderBottomWidth: 0 }}>
-            <Left>
-              <Picker
-                note
-                mode="dropdown"
-                style={{ width: 150 }}
-                selectedValue={this.state.drink}
-                onValueChange={this.changeDrink}
-              >
-                <Picker.Item label="Cappuccino" value="Cappuccino" />
-                <Picker.Item label="Latte" value="Latte" />
-                <Picker.Item label="Espresso" value="Espresso" />
-              </Picker>
-            </Left>
-            <Body>
-              <Picker
-                note
-                mode="dropdown"
-                style={{ width: 150 }}
-                selectedValue={this.state.option}
-                onValueChange={this.changeOption}
-              >
-                <Picker.Item label="Small" value="Small" />
-                <Picker.Item label="Medium" value="Medium" />
-                <Picker.Item label="Large" value="Large" />
-              </Picker>
-            </Body>
-          </ListItem>
+
           <Button full danger onPress={this.handleAdd}>
             <Text>Add</Text>
           </Button>

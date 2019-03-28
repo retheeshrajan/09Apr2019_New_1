@@ -8,8 +8,23 @@ class ItemStore {
 
   fetchAllItems = async () => {
     try {
-      let res = await axios.get("http://127.0.0.1:8000/api/list/");
+      console.log("wait for items....");
+      let res = await axios.get("http://192.168.8.101/api/list/");
+      // let res = [
+      //   {
+      //     name: "pc",
+      //     description: "pc computer",
+      //     price: "400.000"
+      //   },
+      //   {
+      //     name: "Laptop",
+      //     description: "Mobile PC",
+      //     price: "425.000"
+      //   }
+      // ];
       let items = res.data;
+
+      //console.log(items);
       this.items = items;
       this.loading = false;
     } catch (err) {
@@ -25,6 +40,7 @@ decorate(ItemStore, {
 });
 
 let itemStore = new ItemStore();
+console.log("Hi");
 itemStore.fetchAllItems();
 
 export default itemStore;

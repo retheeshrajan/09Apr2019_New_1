@@ -20,10 +20,7 @@ class TheItem extends Component {
   render() {
     const { item } = this.props;
     return (
-      <ImageBackground
-        source={{ uri: item.background }}
-        style={styles.background}
-      >
+      <ImageBackground source={{ uri: item.image }} style={styles.background}>
         <View style={styles.overlay} />
         <ListItem button onPress={this.handlePress} style={styles.listitem}>
           <Card style={styles.transparent}>
