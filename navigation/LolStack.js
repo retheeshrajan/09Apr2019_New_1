@@ -8,7 +8,7 @@ const LolStack = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
-      title: "WhatTheShop"
+      title: "TheShop"
     }
   }
 );

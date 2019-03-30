@@ -12,6 +12,7 @@ import CartStore from "../../stores/cartStore";
 
 class ItemCart extends Component {
   render() {
+    
     const items = CartStore.items;
     let cartItems;
     if (items) {

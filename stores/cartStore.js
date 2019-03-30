@@ -5,7 +5,7 @@ class CartStore {
 
   addItemToCart(item) {
     const foundItem = this.items.find(
-      cartItem => cartItem.drink == item.drink && cartItem.option == item.option
+      cartItem => cartItem.name == item.name && cartItem.price == item.price
     );
     if (foundItem) {
       foundItem.quantity++;

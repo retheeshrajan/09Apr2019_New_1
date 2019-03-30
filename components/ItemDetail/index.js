@@ -26,33 +26,37 @@ import CartButton from "../CartButton";
 
 class ItemDetail extends Component {
   state = {
-    drink: "Cappuccino",
-    option: "Small"
+    name: "",
+    price: "",
+    quantity: 1
   };
 
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam("item", {}).name,
+    headerStyle: { backgroundColor: "#abc" },
     headerRight: <CartButton />
   });
 
-  changeDrink = value => {
-    this.setState({
-      drink: value
-    });
-  };
+  // changeName = value => {
+  //   this.setState({
+  //     name: value
+  //   });
+  // };
 
-  changeOption = value => {
-    this.setState({
-      option: value
-    });
-  };
+  // changePrice = value => {
+  //   this.setState({
+  //     price: value
+  //   });
+  // };
 
   handleAdd = () => {
-    let item = {
-      ...this.state,
+    let myitem = {
+      name: this.props.navigation.getParam("item", {}).name,
+      price: this.props.navigation.getParam("item", {}).price,
+      image: this.props.navigation.getParam("item", {}).image,
       quantity: 1
     };
-    CartStore.addItemToCart(item);
+    CartStore.addItemToCart(myitem);
   };
 
   render() {
