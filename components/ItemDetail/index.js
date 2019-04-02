@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
 // NativeBase Components
 import {
@@ -13,29 +13,30 @@ import {
   ListItem,
   Picker,
   Content
-} from "native-base";
+} from 'native-base'
 
 // Style
-import styles from "./styles";
+import styles from './styles'
 
-//Store
-import CartStore from "../../stores/cartStore";
+// Store
+import CartStore from '../../stores/cartStore'
+import authStore from '../../stores/authStore'
 
 // Components
-import CartButton from "../CartButton";
+import CartButton from '../CartButton'
 
 class ItemDetail extends Component {
   state = {
-    name: "",
-    price: "",
+    name: '',
+    price: '',
     quantity: 1
-  };
+  }
 
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("item", {}).name,
-    headerStyle: { backgroundColor: "#abc" },
+    title: navigation.getParam('item', {}).name,
+    headerStyle: { backgroundColor: '#abc' },
     headerRight: <CartButton />
-  });
+  })
 
   // changeName = value => {
   //   this.setState({
@@ -50,24 +51,27 @@ class ItemDetail extends Component {
   // };
 
   handleAdd = () => {
-    let myitem = {
-      name: this.props.navigation.getParam("item", {}).name,
-      price: this.props.navigation.getParam("item", {}).price,
-      image: this.props.navigation.getParam("item", {}).image,
-      quantity: 1
-    };
-    CartStore.addItemToCart(myitem);
-  };
+    if (authStore.user) {
+      let myitem = {
+        name: this.props.navigation.getParam('item', {}).name,
+        price: this.props.navigation.getParam('item', {}).price,
+        quantity: 1
+      }
+      CartStore.addItemToCart(myitem)
+    } else {
+      this.props.navigation.navigate('Login')
+    }
+  }
 
-  render() {
-    const item = this.props.navigation.getParam("item", {});
+  render () {
+    const item = this.props.navigation.getParam('item', {})
     return (
       <Content>
         <List>
           <ListItem style={styles.top}>
             <Left>
               <Text style={styles.text}>
-                {item.name + "\n"}
+                {item.name + '\n'}
                 <Text note>{item.description}</Text>
               </Text>
             </Left>
@@ -82,8 +86,8 @@ class ItemDetail extends Component {
           </Button>
         </List>
       </Content>
-    );
+    )
   }
 }
 
-export default observer(ItemDetail);
+export default observer(ItemDetail)

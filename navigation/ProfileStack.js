@@ -1,12 +1,12 @@
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator } from 'react-navigation'
 
-import ProfileScreen from "../components/Profile";
-import React from "react";
-import ItemList from "../components/ItemList";
-import ItemDetail from "../components/ItemDetail";
-import ItemCart from "../components/ItemCart";
-import LoginScreen from "../components/Login";
-import { Icon } from "native-base";
+import ProfileScreen from '../components/Profile'
+import React from 'react'
+import ItemList from '../components/ItemList'
+import ItemDetail from '../components/ItemDetail'
+import ItemCart from '../components/ItemCart'
+import LoginScreen from '../components/Login'
+import { Icon } from 'native-base'
 
 const ProfileStack = createStackNavigator(
   {
@@ -17,12 +17,12 @@ const ProfileStack = createStackNavigator(
     Login: LoginScreen
   },
   {
-    initialRouteName: "ItemList",
+    initialRouteName: 'ItemList',
     defaultNavigationOptions: {
-      title: "WhatTheShop"
+      title: 'WhatTheShop'
     },
-    headerStyle: { backgroundColor: "#00ff00" }
+    headerStyle: { backgroundColor: '#00ff00' }
   }
-);
+)
 
-export default ProfileStack;
+export default ProfileStack

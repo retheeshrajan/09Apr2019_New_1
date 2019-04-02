@@ -1,47 +1,46 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
 // NativeBase Components
-import { Form, Item, Input, Button, Text } from "native-base";
+import { Form, Item, Input, Button, Text } from 'native-base'
 
 // Store
-import authStore from "../../stores/authStore";
+import authStore from '../../stores/authStore'
+import cartStore from '../../stores/cartStore'
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
+  state = {
+    username: '',
+    password: ''
   }
 
-  render() {
+  handleLogin = () => {
+    authStore.loginUser(this.state, this.props.navigation)
+  }
+
+  render () {
     return (
       <Form>
         <Item>
           <Input
-            placeholder="Username"
-            autoCapitalize="none"
+            placeholder='Username'
+            autoCapitalize='none'
             onChangeText={username => this.setState({ username })}
           />
         </Item>
         <Item last>
           <Input
-            placeholder="Password"
-            autoCapitalize="none"
-            secureTextEntry={true}
+            placeholder='Password'
+            autoCapitalize='none'
+            secureTextEntry
             onChangeText={password => this.setState({ password })}
           />
         </Item>
-        <Button
-          full
-          onPress={() => alert("You need to implement Login noob...")}
-        >
+        <Button full success onPress={this.handleLogin}>
           <Text>Login</Text>
         </Button>
       </Form>
-    );
+    )
   }
 }
-export default observer(Login);
+export default observer(Login)
