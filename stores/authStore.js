@@ -11,7 +11,7 @@ class AuthStore {
   signupUser = async (userData, history) => {
     try {
       const res = await axios.post(
-        'http://192.168.100.206:8000/api/register/',
+        'http://localhost:8000/api/register/',
         userData
       )
       const user = res.data
@@ -23,7 +23,7 @@ class AuthStore {
 
   getProfile = async userData => {
     try {
-      let res = await axios.get('http://192.168.100.206:8000/user/')
+      let res = await axios.get('http://localhost:8000/user/')
       let profile = res.data
       this.profile = profile
       this.loading = false
@@ -34,10 +34,7 @@ class AuthStore {
 
   loginUser = async (userData, history) => {
     try {
-      const res = await axios.post(
-        'http://192.168.100.206:8000/api/login/',
-        userData
-      )
+      const res = await axios.post('http://localhost:8000/api/login/', userData)
       const user = res.data
       this.setUser(user.token)
       history.navigate('ItemList')

@@ -14,9 +14,9 @@ class Profile extends Component {
     email: ''
   }
 
-  componentDidUpdate (prevProps) {
-    if (this.props.userID !== prevProps.userID) {
-      authStore.getProfile(this.props.userID)
+  componentDidMount () {
+    if (authStore.user) {
+      authStore.getProfile(authStore.user)
     }
   }
 

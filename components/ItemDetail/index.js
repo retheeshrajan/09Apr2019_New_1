@@ -25,6 +25,7 @@ import authStore from '../../stores/authStore'
 // Components
 import CartButton from '../CartButton'
 
+
 class ItemDetail extends Component {
   state = {
     name: '',
@@ -37,18 +38,6 @@ class ItemDetail extends Component {
     headerStyle: { backgroundColor: '#abc' },
     headerRight: <CartButton />
   })
-
-  // changeName = value => {
-  //   this.setState({
-  //     name: value
-  //   });
-  // };
-
-  // changePrice = value => {
-  //   this.setState({
-  //     price: value
-  //   });
-  // };
 
   handleAdd = () => {
     if (authStore.user) {
