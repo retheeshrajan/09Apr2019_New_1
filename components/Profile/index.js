@@ -1,23 +1,45 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
 // NativeBase Components
-import { Card, CardItem, Text, Button } from "native-base";
-import authStore from "../../stores/authStore";
+import { Content, Text } from 'native-base'
+
+// Store
+import authStore from '../../stores/authStore'
 
 class Profile extends Component {
-  render() {
+  state = {
+    first_name: '',
+    last_name: '',
+    email: ''
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.userID !== prevProps.userID) {
+      authStore.getProfile(this.props.userID)
+    }
+  }
+
+  handleLogout = () => {
+    if (authStore.user) {
+      authStore.logout()
+      this.props.navigation.navigate('ItemList')
+    }
+  }
+
+  render () {
+    const profilestr = authStore.profile
     return (
-      <Card>
-        <CardItem>
-          <Button
-            danger
-            onPress={() => alert("You need to implement Logout n00b...")}
-          >
-            <Text>Logout</Text>
-          </Button>
-        </CardItem>
-      </Card>
-    );
+      <Content>
+        <View>
+          <ScrollView>
+            <Text>First Name : {profilestr.first_name}</Text>
+            <Text>Last Name : {profilestr.last_name}</Text>
+            <Text>Email : {profilestr.email}</Text>
+          </ScrollView>
+        </View>
+      </Content>
+    )
   }
 }
-export default Profile;
+export default observer(Profile)

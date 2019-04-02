@@ -6,7 +6,6 @@ import { Form, Item, Input, Button, Text } from 'native-base'
 
 // Store
 import authStore from '../../stores/authStore'
-import cartStore from '../../stores/cartStore'
 
 class Login extends Component {
   state = {

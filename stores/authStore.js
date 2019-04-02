@@ -6,6 +6,7 @@ import { AsyncStorage } from 'react-native'
 
 class AuthStore {
   user = null
+  profile = null
 
   signupUser = async (userData, history) => {
     try {
@@ -15,6 +16,17 @@ class AuthStore {
       )
       const user = res.data
       this.loginUser(userData, history)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  getProfile = async userData => {
+    try {
+      let res = await axios.get('http://192.168.100.206:8000/user/')
+      let profile = res.data
+      this.profile = profile
+      this.loading = false
     } catch (err) {
       console.log(err)
     }

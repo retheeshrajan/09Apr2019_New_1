@@ -9,7 +9,7 @@ class ItemStore {
   fetchAllItems = async () => {
     try {
       console.log('wait for items....')
-      let res = await axios.get('http://192.168.100.206:8000/api/list/')
+      let res = await axios.get('http://10.28.28.61/api/list/')
       // let res = [
       //   {
       //     name: "pc",
