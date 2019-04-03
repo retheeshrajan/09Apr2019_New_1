@@ -1,19 +1,19 @@
-import { decorate, observable } from 'mobx'
-import axios from 'axios'
+import { decorate, observable } from "mobx";
+import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'http://192.168.100.206:8000/'
-})
+  baseURL: "http://192.168.100.143/"
+});
 
 class ItemStore {
-  items = null
-  item = null
-  loading = true
+  items = null;
+  item = null;
+  loading = true;
 
   fetchAllItems = async () => {
     try {
-      console.log('wait for items....')
-      let res = await instance.get('api/list/')
+      console.log("wait for items....");
+      let res = await instance.get("api/list/");
       // let res = [
       //   {
       //     name: "pc",
@@ -26,25 +26,25 @@ class ItemStore {
       //     price: "425.000"
       //   }
       // ];
-      let items = res.data
+      let items = res.data;
 
       // console.log(items);
-      this.items = items
-      this.loading = false
+      this.items = items;
+      this.loading = false;
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 }
 
 decorate(ItemStore, {
   items: observable,
   item: observable,
   loading: observable
-})
+});
 
-let itemStore = new ItemStore()
+let itemStore = new ItemStore();
 
-itemStore.fetchAllItems()
+itemStore.fetchAllItems();
 
-export default itemStore
+export default itemStore;

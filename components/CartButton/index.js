@@ -15,7 +15,7 @@ class CartButton extends Component {
         onPress={() => this.props.navigation.navigate("ItemCart")}
       >
         <Text>
-          {CartStore.quantity + " "}
+          {CartStore.quantity + " - "}
           <Icon
             type="FontAwesome"
             name="coffee"
