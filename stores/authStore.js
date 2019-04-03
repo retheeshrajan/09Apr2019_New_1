@@ -5,7 +5,7 @@ import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
 const instance = axios.create({
-  baseURL: 'http://10.28.28.195:8001/'
+  baseURL: 'http://192.168.100.206:8000/'
 })
 
 class AuthStore {
@@ -23,9 +23,9 @@ class AuthStore {
     }
   }
 
-  getProfile = async userData => {
+  getProfile = async () => {
     try {
-      let res = await instance.get('api/login/')
+      let res = await instance.get('api/userupdate/')
       let profile = res.data
       this.profile = profile
       this.loading = false
@@ -40,7 +40,7 @@ class AuthStore {
       const user = res.data
       this.setUser(user.token)
       if (this.user) {
-        history.navigate('ItemList')
+        history.replace('ItemList')
       } else {
         this.signinmsg = 'Login failed!'
       }
@@ -64,7 +64,7 @@ class AuthStore {
 
   logout = history => {
     this.setUser()
-    history.navigate('ItemList')
+    history.navigate('Profile')
   }
 
   setUser = async token => {

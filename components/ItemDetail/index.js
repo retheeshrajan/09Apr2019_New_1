@@ -26,12 +26,6 @@ import authStore from '../../stores/authStore'
 import CartButton from '../CartButton'
 
 class ItemDetail extends Component {
-  state = {
-    name: '',
-    price: '',
-    quantity: 1
-  }
-
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('item', {}).name,
     headerStyle: { backgroundColor: '#abc' },
@@ -41,10 +35,12 @@ class ItemDetail extends Component {
   handleAdd = () => {
     if (authStore.user) {
       console.log('user - order begins')
+      let item = this.props.navigation.getParam('item', {})
+      console.log('ITEM DETAAAIL', item)
       let myitem = {
-        id: this.props.navigation.getParam('item', {}).id,
-        name: this.props.navigation.getParam('item', {}).name,
-        price: this.props.navigation.getParam('item', {}).price,
+        id: item.id,
+        name: item.name,
+        price: item.price,
         quantity: 1
       }
       console.log(`user - order begins - got items ${myitem}`)

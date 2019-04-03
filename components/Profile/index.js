@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
 // NativeBase Components
-import { Content, Text } from 'native-base'
+import { Content, Text, View, ScrollView, Spinner } from 'native-base'
 
 // Store
 import authStore from '../../stores/authStore'
@@ -28,6 +28,9 @@ class Profile extends Component {
   }
 
   render () {
+    if (!authStore.profile) {
+      return <Spinner />
+    }
     const profilestr = authStore.profile
     return (
       <Content>

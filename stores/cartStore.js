@@ -2,7 +2,7 @@ import { decorate, observable, action, computed } from 'mobx'
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://10.28.28.195:8001/'
+  baseURL: 'http://192.168.100.206:8000/'
 })
 
 class CartStore {
@@ -20,7 +20,8 @@ class CartStore {
       // let res = await instance.post('api/ctrl_order/', item)
       this.items.push(item)
     }
-    let res = await instance.post('api/ctrl_order/', item)
+    console.log("ADD ITEM TO CART", item.id)
+    let res = await instance.post(`api/ctrl_order/${item.id}/`)
     this.resdata = res.data
     // this.totalamt = this.resdata.total
     // this.totalqty = this.resdata.quantity
