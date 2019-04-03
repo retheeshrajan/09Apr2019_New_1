@@ -4,16 +4,18 @@ import { decorate, observable } from 'mobx'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
+const instance = axios.create({
+  baseURL: 'http://10.28.28.195:8001/'
+})
+
 class AuthStore {
   user = null
   profile = null
+  signinmsg = ''
 
   signupUser = async (userData, history) => {
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/register/',
-        userData
-      )
+      const res = await instance.post('api/register/', userData)
       const user = res.data
       this.loginUser(userData, history)
     } catch (err) {
@@ -23,7 +25,7 @@ class AuthStore {
 
   getProfile = async userData => {
     try {
-      let res = await axios.get('http://localhost:8000/user/')
+      let res = await instance.get('api/login/')
       let profile = res.data
       this.profile = profile
       this.loading = false
@@ -34,10 +36,14 @@ class AuthStore {
 
   loginUser = async (userData, history) => {
     try {
-      const res = await axios.post('http://localhost:8000/api/login/', userData)
+      const res = await instance.post('api/login/', userData)
       const user = res.data
       this.setUser(user.token)
-      history.navigate('ItemList')
+      if (this.user) {
+        history.navigate('ItemList')
+      } else {
+        this.signinmsg = 'Login failed!'
+      }
     } catch (err) {
       console.error(err)
     }
@@ -56,8 +62,9 @@ class AuthStore {
     }
   }
 
-  logout = () => {
+  logout = history => {
     this.setUser()
+    history.navigate('ItemList')
   }
 
   setUser = async token => {

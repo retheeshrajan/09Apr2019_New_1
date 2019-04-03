@@ -38,6 +38,7 @@ class Login extends Component {
         <Button full success onPress={this.handleLogin}>
           <Text>Login</Text>
         </Button>
+        <Text>{authStore.signinmsg}</Text>
       </Form>
     )
   }

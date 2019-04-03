@@ -25,7 +25,6 @@ import authStore from '../../stores/authStore'
 // Components
 import CartButton from '../CartButton'
 
-
 class ItemDetail extends Component {
   state = {
     name: '',
@@ -41,13 +40,17 @@ class ItemDetail extends Component {
 
   handleAdd = () => {
     if (authStore.user) {
+      console.log('user - order begins')
       let myitem = {
+        id: this.props.navigation.getParam('item', {}).id,
         name: this.props.navigation.getParam('item', {}).name,
         price: this.props.navigation.getParam('item', {}).price,
         quantity: 1
       }
+      console.log(`user - order begins - got items ${myitem}`)
       CartStore.addItemToCart(myitem)
     } else {
+      console.log('user - need login to add item')
       this.props.navigation.navigate('Login')
     }
   }

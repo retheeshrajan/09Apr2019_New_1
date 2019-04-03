@@ -9,8 +9,19 @@ import CartItem from './CartItem'
 
 // Store
 import CartStore from '../../stores/cartStore'
+import authStore from '../../stores/authStore'
 
 class ItemCart extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'My Cart',
+    headerStyle: { backgroundColor: '#abc' },
+    headerRight: (
+      <Button full danger onPress={authStore.logout(this.props.navigate)}>
+        <Text>Logout</Text>
+      </Button>
+    )
+  })
+
   handleCheckOut = () => {
     CartStore.checkoutCart()
     this.props.navigation.navigate('ItemList')

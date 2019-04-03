@@ -1,6 +1,10 @@
 import { decorate, observable } from 'mobx'
 import axios from 'axios'
 
+const instance = axios.create({
+  baseURL: 'http://10.28.28.195:8001/'
+})
+
 class ItemStore {
   items = null
   item = null
@@ -9,7 +13,7 @@ class ItemStore {
   fetchAllItems = async () => {
     try {
       console.log('wait for items....')
-      let res = await axios.get('http://localhost:8000/api/list/')
+      let res = await instance.get('api/list/')
       // let res = [
       //   {
       //     name: "pc",
