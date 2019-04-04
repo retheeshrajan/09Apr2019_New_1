@@ -16,7 +16,7 @@ class ItemCart extends Component {
     title: "My Cart",
     headerStyle: { backgroundColor: "#abc" },
     headerRight: (
-      <Button full danger onPress={authStore.logout()}>
+      <Button full danger onPress={authStore.logout(this.props.navigation)}>
         <Text>Logout</Text>
       </Button>
     )
