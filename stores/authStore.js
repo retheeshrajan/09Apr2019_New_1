@@ -1,11 +1,11 @@
 // import { Component } from 'react'
 import jwt_decode from 'jwt-decode'
-import { decorate, observable } from 'mobx'
+import { decorate, observable, computed } from 'mobx'
 import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
 const instance = axios.create({
-  baseURL: 'http://10.96.3.111:8000/'
+  baseURL: 'http://172.20.10.3:8000/'
 })
 
 class AuthStore {
@@ -23,12 +23,26 @@ class AuthStore {
     }
   }
 
+  updateProfile = async (userData, history) => {
+    try {
+      const res = await instance.post('api/userupdate/', userData)
+      const user = res.data
+      history.replace('Profile')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   getProfile = async () => {
     try {
-      let res = await instance.get('api/userupdate/')
+      console.log('reaching profile...' + this.user.user_id)
+      let res = await instance.get(`api/profile/${this.user.user_id}`)
+      console.log('done profile.')
       let profile = res.data
       this.profile = profile
       this.loading = false
+      // history.navigate('Profile')
+      console.log(this.profile.first_name)
     } catch (err) {
       console.log(err)
     }
@@ -40,7 +54,9 @@ class AuthStore {
       const user = res.data
       this.setUser(user.token)
       if (this.user) {
-        history.replace('ItemList')
+        // history.replace('ItemList')
+        this.getProfile()
+        history.navigate('Profile')
       } else {
         this.signinmsg = 'Login failed!'
       }
@@ -62,9 +78,8 @@ class AuthStore {
     }
   }
 
-  logout = history => {
+  logout = () => {
     this.setUser()
-    history.navigate('ItemList')
   }
 
   setUser = async token => {
@@ -79,10 +94,19 @@ class AuthStore {
       this.user = null
     }
   }
+
+  get myProfile () {
+    let myProfile = this.profile
+
+    return myProfile
+  }
 }
 
 decorate(AuthStore, {
-  user: observable
+  user: observable,
+  profile: observable,
+  signinmsg: observable,
+  myProfile: computed
 })
 
 const authStore = new AuthStore()

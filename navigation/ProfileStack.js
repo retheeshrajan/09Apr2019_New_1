@@ -7,6 +7,8 @@ import ItemDetail from '../components/ItemDetail'
 import ItemCart from '../components/ItemCart'
 import LoginScreen from '../components/Login'
 import { Icon } from 'native-base'
+import RegisterScreen from '../components/Profile/Register'
+import UpdateProfileScreen from '../components/Profile/updateprofile'
 
 const ProfileStack = createStackNavigator(
   {
@@ -14,7 +16,9 @@ const ProfileStack = createStackNavigator(
     ItemDetail: ItemDetail,
     ItemCart: ItemCart,
     Profile: ProfileScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    Register: RegisterScreen,
+    UpdateProfile: UpdateProfileScreen
   },
   {
     initialRouteName: 'Login',

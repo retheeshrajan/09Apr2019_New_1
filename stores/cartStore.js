@@ -2,7 +2,7 @@ import { decorate, observable, action, computed } from 'mobx'
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://10.96.3.111:8000/'
+  baseURL: 'http://172.20.10.3:8000/'
 })
 
 class CartStore {
@@ -19,21 +19,27 @@ class CartStore {
     //   // let res = await instance.post('api/ctrl_order/', item)
     //   this.items.push(item)
     // }
-    console.log('ADD ITEM TO CART', item.id)
-    let res = await instance.post(`api/ctrl_order/${item.id}`)
-    this.orders = res.data
-    this.qtySum = this.orders.orderSum
-    console.log(this.orders)
-    // this.totalqty = this.resdata.quantity
-    this.fetchCartItems()
+    try {
+      console.log('ADD ITEM TO CART', item.id)
+      let res = await instance.post(`api/ctrl_order/${item.id}`)
+      this.orders = res.data
+      this.qtySum = this.orders.orderSum
+      // console.log(this.orders)
+      // this.totalqty = this.resdata.quantity
+      await this.fetchCartItems()
+    } catch (error) {
+      console.error(err)
+    }
   }
 
   fetchCartItems = async () => {
     try {
       console.log('wait for cart items....')
-      let res = await instance.get('api/cart/')
+      let res = await instance.get(`api/cartitems/${this.orders.id}`)
       let items = res.data
       this.items = items
+      console.log('loaded cart items....')
+
       this.loading = false
     } catch (err) {
       console.error(err)
@@ -42,18 +48,27 @@ class CartStore {
 
   removeItemFromCart = async item => {
     // this.items = this.items.filter(cartItem => cartItem !== item)
-    let res = await instance.post(`api/deletecart/${item.id}`)
-    let items = res.data
-    this.items = items
-    this.loading = false
+    try {
+      let res = await instance.post(`api/deletecart/${item.id}`)
+      let items = res.data
+      this.items = items
+      this.loading = false
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  checkoutCar = async () => {
+  checkoutCart = async () => {
     // this.items = []
-    let res = await instance.post(`api/chcekout/${this.orders.id}`)
-    let items = res.data
-    this.items = items
-    this.loading = false
+    try {
+      console.log(this.orders)
+      let res = await instance.post(`api/checkout/${this.orders.id}`)
+      let items = res.data
+      this.items = items
+      this.loading = false
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   get quantity () {
@@ -66,9 +81,9 @@ class CartStore {
 decorate(CartStore, {
   items: observable,
   qtySum: observable,
-  addItemToCart: action,
-  removeItemFromCart: action,
-  checkoutCart: action,
+  // addItemToCart: action,
+  // removeItemFromCart: action,
+  // checkoutCart: action,
   quantity: computed
 })
 

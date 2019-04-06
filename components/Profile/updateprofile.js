@@ -7,41 +7,20 @@ import { Form, Item, Input, Button, Text } from 'native-base'
 // Store
 import authStore from '../../stores/authStore'
 
-class Register extends Component {
+class UpdateProfile extends Component {
   state = {
-    username: '',
-    password: '',
     firstname: '',
     lastname: '',
     email: ''
   }
 
-  handleRegister = () => {
-    if (authStore.user) {
-      authStore.logout()
-    }
-    authStore.signupUser(this.state, this.props.navigation)
+  handleProfile = () => {
+    authStore.updateProfile(this.state, this.props.navigation)
   }
 
   render () {
     return (
       <Form>
-        <Item>
-          <Input
-            placeholder='Username'
-            autoCapitalize='none'
-            onChangeText={username => this.setState({ username })}
-          />
-        </Item>
-        <Item>
-          <Input
-            placeholder='Password'
-            autoCapitalize='none'
-            secureTextEntry
-            onChangeText={password => this.setState({ password })}
-          />
-        </Item>
-
         <Item>
           <Input
             placeholder='firstname'
@@ -64,12 +43,12 @@ class Register extends Component {
           />
         </Item>
 
-        <Button full success onPress={this.handleRegister}>
-          <Text>Signup</Text>
+        <Button full success onPress={this.handleProfile}>
+          <Text>Update</Text>
         </Button>
         {/* <Text>{authStore.signinmsg}</Text> */}
       </Form>
     )
   }
 }
-export default observer(Register)
+export default observer(UpdateProfile)

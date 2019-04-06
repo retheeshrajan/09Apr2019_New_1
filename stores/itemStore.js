@@ -2,7 +2,7 @@ import { decorate, observable } from 'mobx'
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://10.96.3.111:8000/'
+  baseURL: 'http://172.20.10.3:8000/'
 })
 
 class ItemStore {
