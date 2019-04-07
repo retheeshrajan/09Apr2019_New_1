@@ -13,7 +13,7 @@ import { withNavigation } from "react-navigation";
 class TheItem extends Component {
   handlePress = () => {
     this.props.navigation.navigate("ItemDetail", {
-      item: this.props.item
+      item: this.props.item,
     });
   };
 

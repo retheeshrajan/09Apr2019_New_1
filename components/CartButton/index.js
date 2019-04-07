@@ -5,15 +5,20 @@ import { observer } from "mobx-react";
 
 // Stores
 import CartStore from "../../stores/cartStore";
+import authStore from "../../stores/authStore";
 
 class CartButton extends Component {
+  handleCartItems = () => {
+    if (authStore.user) {
+      if (CartStore.orders.id) {
+        this.props.navigation.navigate("ItemCart");
+      }
+    }
+  };
+
   render() {
     return (
-      <Button
-        light
-        transparent
-        onPress={() => this.props.navigation.navigate("ItemCart")}
-      >
+      <Button light transparent onPress={() => this.handleCartItems()}>
         <Text>
           {CartStore.quantity + " - "}
           <Icon

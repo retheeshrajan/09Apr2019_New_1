@@ -1,36 +1,40 @@
-import React, { Component } from 'react'
-import { observer } from 'mobx-react'
+import React, { Component } from "react";
+import { observer } from "mobx-react";
 
 // NativeBase Components
-import { Form, Item, Input, Button, Text } from 'native-base'
+import { Form, Item, Input, Button, Text } from "native-base";
 
 // Store
-import authStore from '../../stores/authStore'
+import authStore from "../../stores/authStore";
 
 class Login extends Component {
   state = {
-    username: '',
-    password: ''
-  }
+    username: "",
+    password: "",
+  };
 
   handleLogin = () => {
-    authStore.loginUser(this.state, this.props.navigation)
-  }
+    authStore.loginUser(this.state, this.props.navigation);
+  };
 
-  render () {
+  handleRegister = () => {
+    this.props.navigation.navigate("Register");
+  };
+
+  render() {
     return (
       <Form>
         <Item>
           <Input
-            placeholder='Username'
-            autoCapitalize='none'
+            placeholder="Username"
+            autoCapitalize="none"
             onChangeText={username => this.setState({ username })}
           />
         </Item>
         <Item last>
           <Input
-            placeholder='Password'
-            autoCapitalize='none'
+            placeholder="Password"
+            autoCapitalize="none"
             secureTextEntry
             onChangeText={password => this.setState({ password })}
           />
@@ -38,9 +42,12 @@ class Login extends Component {
         <Button full success onPress={this.handleLogin}>
           <Text>Login</Text>
         </Button>
+        <Button full warning onPress={this.handleRegister}>
+          <Text>Register user</Text>
+        </Button>
         {/* <Text>{authStore.signinmsg}</Text> */}
       </Form>
-    )
+    );
   }
 }
-export default observer(Login)
+export default observer(Login);

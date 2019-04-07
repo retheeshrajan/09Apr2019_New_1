@@ -11,7 +11,7 @@ class Lol extends Component {
           fontSize: 300,
           alignSelf: "center",
           paddingTop: "50%",
-          color: "red"
+          color: "red",
         }}
       />
     );

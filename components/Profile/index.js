@@ -1,54 +1,50 @@
-import React, { Component } from 'react'
-import { observer } from 'mobx-react'
+import React, { Component } from "react";
+import { observer } from "mobx-react";
 
 // NativeBase Components
-import { Content, Text, View, ScrollView, Spinner, Button } from 'native-base'
-
+import { Content, Text, View, ScrollView, Spinner, Button } from "native-base";
+import Logout from "../../components/Logout";
 // Store
-import authStore from '../../stores/authStore'
+import authStore from "../../stores/authStore";
 
 class Profile extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'My Profile',
-    headerStyle: { backgroundColor: '#abc' },
-    headerRight: (
-      <Button full danger onPress={this.handleLogout}>
-        <Text>Logout</Text>
-      </Button>
-    )
-  })
+    title: "My Profile",
+    headerStyle: { backgroundColor: "#abc" },
+    headerRight: <Logout />,
+  });
 
   state = {
-    myProfile: null
-  }
+    myProfile: null,
+  };
 
-  componentDidMount () {
+  componentDidMount() {
     //   if (authStore.profile) {
     //     // authStore.getProfile(authStore.user)
     //     this.setState({ first_name: authStore.profile.first_name })
     //     this.setState({ last_name: authStore.profile.last_name })
-    this.setState({ myProfile: authStore.myProfile })
+    this.setState({ myProfile: authStore.myProfile });
     //   }
   }
 
   handleLogout = () => {
     if (authStore.user) {
-      authStore.logout()
-      this.props.navigation.navigate('Login')
+      authStore.logout();
+      this.props.navigation.navigate("Login");
     }
-  }
+  };
 
   handleUpdateProfile = () => {
     if (authStore.user) {
-      this.props.navigation.navigate('UpdateProfile')
+      this.props.navigation.navigate("UpdateProfile");
     }
-  }
+  };
 
-  render () {
+  render() {
     // if (!authStore.profile) {
     //   return <Spinner />
     // }
-    this.setState({ myProfile: authStore.myProfile })
+    this.setState({ myProfile: authStore.myProfile });
 
     return (
       <Content>
@@ -63,7 +59,7 @@ class Profile extends Component {
           </ScrollView>
         </View>
       </Content>
-    )
+    );
   }
 }
-export default observer(Profile)
+export default observer(Profile);

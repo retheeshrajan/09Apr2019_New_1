@@ -5,7 +5,7 @@ import axios from "axios";
 import { AsyncStorage } from "react-native";
 
 const instance = axios.create({
-  baseURL: "http://192.168.100.206:8000/",
+  baseURL: "http://192.168.100.143:80/",
 });
 
 class AuthStore {
@@ -15,7 +15,10 @@ class AuthStore {
 
   signupUser = async (userData, history) => {
     try {
+      console.log("1");
+      console.log("Userdata: ", userData);
       const res = await instance.post("api/register/", userData);
+      console.log("2");
       const user = res.data;
       this.loginUser(userData, history);
     } catch (err) {
@@ -79,6 +82,7 @@ class AuthStore {
   };
 
   logout = history => {
+    console.log("logout begin...");
     this.setUser();
     history.replace("Login");
   };
@@ -90,6 +94,7 @@ class AuthStore {
       this.user = decodedUser;
       await AsyncStorage.setItem("myToken", token);
     } else {
+      console.log("logout begin...in else without token");
       await AsyncStorage.removeItem("myToken");
       delete axios.defaults.headers.common.Authorization;
       this.user = null;

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import { withNavigation } from "react-navigation";
 
 // NativeBase Components
 import { Text, List, Button } from "native-base";
 
 // Component
 import CartItem from "./CartItem";
+import Logout from "../../components/Logout";
 
 // Store
 import CartStore from "../../stores/cartStore";
@@ -15,11 +17,7 @@ class ItemCart extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "My Cart",
     headerStyle: { backgroundColor: "#abc" },
-    headerRight: (
-      <Button full danger onPress={this.handleLogout}>
-        <Text>Logout</Text>
-      </Button>
-    ),
+    headerRight: <Logout />,
   });
 
   componentDidMount() {
@@ -27,6 +25,7 @@ class ItemCart extends Component {
   }
 
   handleLogout = () => {
+    console.log("HELLOOO");
     authStore.logout(this.props.navigation);
 
     //this.props.navigation.navigate("Login");
@@ -38,13 +37,18 @@ class ItemCart extends Component {
   };
 
   render() {
-    const items = CartStore.items;
     console.log("cart item loading in ITEM CART...");
     let cartItems;
-    if (items) {
-      cartItems = items.map(item => <CartItem cartitem={item} key={item.id} />);
-    }
 
+    if (CartStore.items) {
+      const items = CartStore.items;
+
+      if (items) {
+        cartItems = items.map(item => (
+          <CartItem cartitem={item} key={item.id} />
+        ));
+      }
+    }
     return (
       <List>
         {cartItems}
@@ -56,4 +60,4 @@ class ItemCart extends Component {
   }
 }
 
-export default observer(ItemCart);
+export default withNavigation(observer(ItemCart));

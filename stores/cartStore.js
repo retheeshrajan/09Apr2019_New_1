@@ -2,7 +2,7 @@ import { decorate, observable, action, computed } from "mobx";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://192.168.100.206:8000/",
+  baseURL: "http://192.168.100.143:80/",
 });
 
 class CartStore {
@@ -34,12 +34,15 @@ class CartStore {
 
   fetchCartItems = async () => {
     try {
-      console.log("wait for cart items...." + this.orders.id);
-      let res = await instance.get(`api/cartitems/${this.orders.id}`);
-      let cartitems = res.data;
-      this.items = cartitems;
-      console.log("loaded cart items....");
-
+      console.log("order id" + this.orders.id);
+      if (this.orders.id) {
+        console.log("wait for cart items...." + this.orders.id);
+        let res = await instance.get(`api/cart/${this.orders.id}`);
+        // let res = await instance.get(`api/cartitems/${this.orders.id}`);
+        let cartitems = res.data;
+        this.items = cartitems;
+        console.log("loaded cart items....");
+      }
       this.loading = false;
     } catch (err) {
       console.error(err);
@@ -55,6 +58,7 @@ class CartStore {
       //this.items = items;
       console.log("item deleted");
       this.fetchCartItems();
+      this.quantity;
       this.loading = false;
     } catch (error) {
       console.error(error);
@@ -69,7 +73,7 @@ class CartStore {
       await instance.put(`api/checkout/${this.orders.id}`, { status: 1 });
       //let items = res.data;
       this.items = [];
-      //this.orders = null;
+      this.orders = {};
       this.qtySum = "";
       this.loading = false;
     } catch (error) {
