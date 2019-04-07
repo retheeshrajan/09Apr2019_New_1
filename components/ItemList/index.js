@@ -1,29 +1,35 @@
-import React, { Component } from 'react'
-import { observer } from 'mobx-react'
-import { ScrollView, View } from 'react-native'
+import React, { Component } from "react";
+import { observer } from "mobx-react";
+import { ScrollView, View } from "react-native";
 
 // NativeBase Components
-import { List, Content } from 'native-base'
+import { List, Content } from "native-base";
 
 // Store
-import itemStore from '../../stores/itemStore'
+import itemStore from "../../stores/itemStore";
+import CartStore from "../../stores/cartStore";
 
 // Component
-import TheItem from './TheItem'
-import CartButton from '../CartButton'
+import TheItem from "./TheItem";
+import CartButton from "../CartButton";
 
 class ItemList extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Item List',
+    title: "Item List",
     headerLeft: null,
-    headerStyle: { backgroundColor: '#abc' },
-    headerRight: <CartButton />
-  })
-  render () {
-    const items = itemStore.items
-    let myItems
+    headerStyle: { backgroundColor: "#abc" },
+    headerRight: <CartButton />,
+  });
+
+  componentDidMount() {
+    CartStore.qtySum='';
+  }
+
+  render() {
+    const items = itemStore.items;
+    let myItems;
     if (items) {
-      myItems = items.map(item => <TheItem item={item} key={item.name} />)
+      myItems = items.map(item => <TheItem item={item} key={item.name} />);
     }
     return (
       <Content>
@@ -33,8 +39,8 @@ class ItemList extends Component {
           </ScrollView>
         </View>
       </Content>
-    )
+    );
   }
 }
 
-export default observer(ItemList)
+export default observer(ItemList);

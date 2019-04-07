@@ -1,104 +1,105 @@
 // import { Component } from 'react'
-import jwt_decode from 'jwt-decode'
-import { decorate, observable, computed } from 'mobx'
-import axios from 'axios'
-import { AsyncStorage } from 'react-native'
+import jwt_decode from "jwt-decode";
+import { decorate, observable, computed } from "mobx";
+import axios from "axios";
+import { AsyncStorage } from "react-native";
 
 const instance = axios.create({
-  baseURL: 'http://172.20.10.3:8000/'
-})
+  baseURL: "http://192.168.100.206:8000/",
+});
 
 class AuthStore {
-  user = null
-  profile = null
-  signinmsg = ''
+  user = null;
+  profile = null;
+  signinmsg = "";
 
   signupUser = async (userData, history) => {
     try {
-      const res = await instance.post('api/register/', userData)
-      const user = res.data
-      this.loginUser(userData, history)
+      const res = await instance.post("api/register/", userData);
+      const user = res.data;
+      this.loginUser(userData, history);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   updateProfile = async (userData, history) => {
     try {
-      const res = await instance.post('api/userupdate/', userData)
-      const user = res.data
-      history.replace('Profile')
+      const res = await instance.post("api/userupdate/", userData);
+      const user = res.data;
+      history.replace("Profile");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   getProfile = async () => {
     try {
-      console.log('reaching profile...' + this.user.user_id)
-      let res = await instance.get(`api/profile/${this.user.user_id}`)
-      console.log('done profile.')
-      let profile = res.data
-      this.profile = profile
-      this.loading = false
+      console.log("reaching profile..." + this.user.user_id);
+      let res = await instance.get(`api/profile/${this.user.user_id}`);
+      console.log("done profile.");
+      let profile = res.data;
+      this.profile = profile;
+      this.loading = false;
       // history.navigate('Profile')
-      console.log(this.profile.first_name)
+      console.log(this.profile.first_name);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   loginUser = async (userData, history) => {
     try {
-      const res = await instance.post('api/login/', userData)
-      const user = res.data
-      this.setUser(user.token)
+      const res = await instance.post("api/login/", userData);
+      const user = res.data;
+      this.setUser(user.token);
       if (this.user) {
-        // history.replace('ItemList')
-        this.getProfile()
-        history.navigate('Profile')
+        history.replace("ItemList");
+        //this.getProfile()
+        //history.navigate('Profile')
       } else {
-        this.signinmsg = 'Login failed!'
+        this.signinmsg = "Login failed!";
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   checkForToken = async () => {
-    const token = await AsyncStorage.getItem('myToken')
+    const token = await AsyncStorage.getItem("myToken");
     if (token) {
-      const currentTime = Date.now() / 1000
-      const user = jwt_decode(token)
+      const currentTime = Date.now() / 1000;
+      const user = jwt_decode(token);
       if (user.exp >= currentTime) {
-        this.setUser(token)
+        this.setUser(token);
       } else {
-        this.logout()
+        this.logout();
       }
     }
-  }
+  };
 
-  logout = () => {
-    this.setUser()
-  }
+  logout = history => {
+    this.setUser();
+    history.replace("Login");
+  };
 
   setUser = async token => {
     if (token) {
-      axios.defaults.headers.common.Authorization = `JWT ${token}`
-      const decodedUser = jwt_decode(token)
-      this.user = decodedUser
-      await AsyncStorage.setItem('myToken', token)
+      axios.defaults.headers.common.Authorization = `JWT ${token}`;
+      const decodedUser = jwt_decode(token);
+      this.user = decodedUser;
+      await AsyncStorage.setItem("myToken", token);
     } else {
-      await AsyncStorage.removeItem('myToken')
-      delete axios.defaults.headers.common.Authorization
-      this.user = null
+      await AsyncStorage.removeItem("myToken");
+      delete axios.defaults.headers.common.Authorization;
+      this.user = null;
     }
-  }
+  };
 
-  get myProfile () {
-    let myProfile = this.profile
+  get myProfile() {
+    let myProfile = this.profile;
 
-    return myProfile
+    return myProfile;
   }
 }
 
@@ -106,10 +107,10 @@ decorate(AuthStore, {
   user: observable,
   profile: observable,
   signinmsg: observable,
-  myProfile: computed
-})
+  myProfile: computed,
+});
 
-const authStore = new AuthStore()
-authStore.checkForToken()
+const authStore = new AuthStore();
+authStore.checkForToken();
 
-export default authStore
+export default authStore;
