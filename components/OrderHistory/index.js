@@ -6,15 +6,15 @@ import { ScrollView, View } from "react-native";
 import { List, Content } from "native-base";
 
 // Store
-import itemStore from "../../stores/itemStore";
-import CartStore from "../../stores/cartStore";
+
+import cartStore from "../../stores/cartStore";
 import authStore from "../../stores/authStore";
 
 // Component
-import TheItem from "./TheItem";
+import TheOrder from "./TheOrder";
 import CartButton from "../CartButton";
 
-class ItemList extends Component {
+class OrderHistory extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Item List",
     headerLeft: null,
@@ -22,24 +22,19 @@ class ItemList extends Component {
     headerRight: <CartButton />
   });
 
-  componentDidMount() {
-    // CartStore.qtySum='';
-    if (authStore.user) {
-      CartStore.fetchOrder();
-    }
-  }
+  componentDidMount() {}
 
   render() {
-    const items = itemStore.items;
-    let myItems;
-    if (items) {
-      myItems = items.map(item => <TheItem item={item} key={item.name} />);
+    const orders = cartStore.orderhistory;
+    let myOrders;
+    if (orders) {
+      myOrders = orders.map(order => <TheOrder order={order} key={order.id} />);
     }
     return (
       <Content>
         <View>
           <ScrollView>
-            <List>{myItems}</List>
+            <List>{myOrders}</List>
           </ScrollView>
         </View>
       </Content>
@@ -47,4 +42,4 @@ class ItemList extends Component {
   }
 }
 
-export default observer(ItemList);
+export default observer(OrderHistory);

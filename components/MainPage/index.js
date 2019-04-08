@@ -40,6 +40,13 @@ class MainPage extends Component {
     }
   };
 
+  handleOrderHistory = () => {
+    console.log("Your history....");
+    if (authStore.user) {
+      CartStore.fetchHistory(this.props.navigation);
+    }
+  };
+
   render() {
     return (
       <List>
@@ -51,6 +58,10 @@ class MainPage extends Component {
         </Button>
         <Button full danger onPress={this.handleMyCart}>
           <Text>View MyCart</Text>
+        </Button>
+
+        <Button full warning onPress={this.handleOrderHistory}>
+          <Text>My Order History</Text>
         </Button>
 
         <Button full danger onPress={this.handleLogout}>

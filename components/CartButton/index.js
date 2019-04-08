@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 // Stores
 import CartStore from "../../stores/cartStore";
 import authStore from "../../stores/authStore";
+import styles from "./styles";
 
 class CartButton extends Component {
   handleCartItems = () => {
@@ -19,12 +20,12 @@ class CartButton extends Component {
   render() {
     return (
       <Button light transparent onPress={() => this.handleCartItems()}>
-        <Text>
-          {CartStore.quantity + " - "}
+        <Text style={styles.text}>
+          {CartStore.quantity + " "}
           <Icon
             type="FontAwesome"
-            name="coffee"
-            style={{ color: "white", fontSize: 15 }}
+            name="opencart"
+            style={{ color: "blue", fontSize: 25 }}
           />
         </Text>
       </Button>

@@ -7,11 +7,14 @@ import { Text, Button, List } from "native-base";
 
 // Store
 import authStore from "../../stores/authStore";
+import cartStore from "../../stores/cartStore";
 
 class Logout extends Component {
   handleLogout = () => {
     console.log("HELLOOO");
+
     authStore.logout(this.props.navigation);
+    //cartStore.clearData();
 
     //this.props.navigation.navigate("Login");
   };

@@ -4,8 +4,10 @@ import { decorate, observable, computed } from "mobx";
 import axios from "axios";
 import { AsyncStorage } from "react-native";
 
+import cartStore from "./cartStore";
+
 const instance = axios.create({
-  baseURL: "http://192.168.100.143:8000/",
+  baseURL: "http://192.168.100.143/"
 });
 
 class AuthStore {
@@ -30,10 +32,8 @@ class AuthStore {
     try {
       console.log("inside update profile - authStore..");
       console.log("userData in updateProfile: " + userData.first_name);
-      const res = await instance.put(
-        `api/userupdate/${this.user.user_id}`,
-        userData
-      );
+
+      const res = await instance.put("api/userupdate/", userData);
       console.log("done update..");
       let profile = res.data;
       this.profile = profile;
@@ -47,7 +47,7 @@ class AuthStore {
   getProfile = async () => {
     try {
       console.log("reaching profile....." + this.user.user_id);
-      let res = await instance.get(`api/profile/${this.user.user_id}`);
+      const res = await instance.get("api/userupdate/");
       console.log("loading done profile.");
       let profile = res.data;
       this.profile = profile;
@@ -111,6 +111,7 @@ class AuthStore {
       console.log("logout begin...in else without token");
       await AsyncStorage.removeItem("myToken");
       delete axios.defaults.headers.common.Authorization;
+      cartStore.qtySum = " ";
       this.user = null;
     }
   };
@@ -126,7 +127,7 @@ decorate(AuthStore, {
   user: observable,
   profile: observable,
   signinmsg: observable,
-  myProfile: computed,
+  myProfile: computed
 });
 
 const authStore = new AuthStore();

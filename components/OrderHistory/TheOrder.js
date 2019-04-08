@@ -18,32 +18,28 @@ import styles from "./styles";
 // Navigation
 import { withNavigation } from "react-navigation";
 
-class TheItem extends Component {
-  handlePress = () => {
-    this.props.navigation.navigate("ItemDetail", {
-      item: this.props.item
-    });
-  };
+class TheOrder extends Component {
+  //   handlePress = () => {
+  //     this.props.navigation.navigate("ItemDetail", {
+  //       item: this.props.item
+  //     });
+  //   };
 
   render() {
-    const { item } = this.props;
+    const { order } = this.props;
     return (
       <>
         <View style={styles.thumbnail} />
         <ListItem button onPress={this.handlePress} style={styles.listitem}>
           <Card style={styles.transparent}>
             <CardItem style={styles.transparent}>
-              <Left>
-                <Thumbnail
-                  bordered
-                  source={{ uri: item.image }}
-                  style={styles.thumbnail}
-                />
-                <Text style={styles.text}>{item.name}</Text>
-                <Text note style={styles.text}>
-                  {item.price}
-                </Text>
-              </Left>
+              <Text style={styles.text}>ID : {order.id}</Text>
+              <Text note style={styles.text}>
+                Date: {order.date}
+              </Text>
+              <Text note style={styles.text}>
+                Amount: {order.orderSum}
+              </Text>
             </CardItem>
           </Card>
         </ListItem>
@@ -52,4 +48,4 @@ class TheItem extends Component {
   }
 }
 
-export default withNavigation(TheItem);
+export default withNavigation(TheOrder);

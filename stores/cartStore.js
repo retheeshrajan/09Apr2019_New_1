@@ -2,13 +2,21 @@ import { decorate, observable, action, computed } from "mobx";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://192.168.100.143:8000/",
+  baseURL: "http://192.168.100.143/"
 });
 
 class CartStore {
   items = [];
   orders = null;
-  qtySum = "Items ";
+  qtySum = " ";
+  orderhistory = null;
+
+  clearData = () => {
+    console.log("I am clearing data..1");
+    this.items = [];
+    this.orders = null;
+    this.qtySum = "";
+  };
 
   addItemToCart = async item => {
     // const foundItem = this.items.find(cartItem => cartItem.name == item.name)
@@ -23,7 +31,7 @@ class CartStore {
       console.log("ADD ITEM TO CART", item.id);
       let res = await instance.post(`api/ctrl_order/${item.id}`);
       this.orders = res.data;
-      this.qtySum = this.orders.orderSum;
+      this.qtySum = this.orders.order_sum;
       // console.log(this.orders)
       // this.totalqty = this.resdata.quantity
       //await this.fetchCartItems();
@@ -36,7 +44,22 @@ class CartStore {
     try {
       let res = await instance.get("api/order/");
       this.orders = res.data;
-      this.qtySum = this.orders.orderSum;
+      if (this.orders) {
+        this.qtySum = this.orders.order_sum;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchHistory = async history => {
+    try {
+      let res = await instance.get("api/history/");
+      this.orderhistory = res.data;
+      history.replace("OrderHistory");
+      // if (this.orders) {
+      //   this.qtySum = this.orders.order_sum;
+      // }
     } catch (error) {
       console.error(error);
     }
@@ -101,10 +124,12 @@ class CartStore {
 decorate(CartStore, {
   items: observable,
   qtySum: observable,
+  orders: observable,
+  orderhistory: observable,
   // addItemToCart: action,
   // removeItemFromCart: action,
   // checkoutCart: action,
-  quantity: computed,
+  quantity: computed
 });
 
 export default new CartStore();
