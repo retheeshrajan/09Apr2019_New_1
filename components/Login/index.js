@@ -14,7 +14,9 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    authStore.loginUser(this.state, this.props.navigation);
+    if (this.state.username && this.state.password) {
+      authStore.loginUser(this.state, this.props.navigation);
+    }
   };
 
   handleRegister = () => {
@@ -22,6 +24,9 @@ class Login extends Component {
   };
 
   render() {
+    if (authStore.user) {
+      this.props.navigation.navigate;
+    }
     return (
       <Form>
         <Item>
@@ -45,7 +50,7 @@ class Login extends Component {
         <Button full warning onPress={this.handleRegister}>
           <Text>Register user</Text>
         </Button>
-        {/* <Text>{authStore.signinmsg}</Text> */}
+        <Text>{authStore.signinmsg}</Text>
       </Form>
     );
   }

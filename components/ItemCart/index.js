@@ -21,7 +21,11 @@ class ItemCart extends Component {
   });
 
   componentDidMount() {
-    CartStore.fetchCartItems();
+    if (authStore.user) {
+      if (CartStore.orders) {
+        CartStore.fetchCartItems();
+      }
+    }
   }
 
   handleLogout = () => {

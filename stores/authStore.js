@@ -5,7 +5,7 @@ import axios from "axios";
 import { AsyncStorage } from "react-native";
 
 const instance = axios.create({
-  baseURL: "http://192.168.100.143:80/",
+  baseURL: "http://192.168.100.143:8000/",
 });
 
 class AuthStore {
@@ -28,8 +28,16 @@ class AuthStore {
 
   updateProfile = async (userData, history) => {
     try {
-      const res = await instance.post("api/userupdate/", userData);
-      const user = res.data;
+      console.log("inside update profile - authStore..");
+      console.log("userData in updateProfile: " + userData.first_name);
+      const res = await instance.put(
+        `api/userupdate/${this.user.user_id}`,
+        userData
+      );
+      console.log("done update..");
+      let profile = res.data;
+      this.profile = profile;
+      this.loading = false;
       history.replace("Profile");
     } catch (err) {
       console.log(err);
@@ -38,9 +46,9 @@ class AuthStore {
 
   getProfile = async () => {
     try {
-      console.log("reaching profile..." + this.user.user_id);
+      console.log("reaching profile....." + this.user.user_id);
       let res = await instance.get(`api/profile/${this.user.user_id}`);
-      console.log("done profile.");
+      console.log("loading done profile.");
       let profile = res.data;
       this.profile = profile;
       this.loading = false;
@@ -53,15 +61,21 @@ class AuthStore {
 
   loginUser = async (userData, history) => {
     try {
+      console.log("login_1");
+      console.log("userData: " + userData.username);
+      console.log(res);
       const res = await instance.post("api/login/", userData);
-      const user = res.data;
-      this.setUser(user.token);
-      if (this.user) {
-        history.replace("ItemList");
-        //this.getProfile()
-        //history.navigate('Profile')
-      } else {
-        this.signinmsg = "Login failed!";
+      if (res) {
+        console.log("login_2" + res.data);
+        const user = res.data;
+        this.setUser(user.token);
+        if (this.user) {
+          this.getProfile();
+          history.replace("MainPage");
+          //history.navigate('Profile')
+        } else {
+          this.signinmsg = "Login failed!";
+        }
       }
     } catch (err) {
       console.error(err);
@@ -82,7 +96,7 @@ class AuthStore {
   };
 
   logout = history => {
-    console.log("logout begin...");
+    console.log("logout begin....");
     this.setUser();
     history.replace("Login");
   };

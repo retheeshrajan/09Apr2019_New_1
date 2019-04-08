@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 
 // NativeBase Components
-import { Content, Text, View, ScrollView, Spinner, Button } from "native-base";
+import { Content, Text, View, ScrollView, Button } from "native-base";
 import Logout from "../../components/Logout";
 // Store
 import authStore from "../../stores/authStore";
@@ -15,24 +15,22 @@ class Profile extends Component {
   });
 
   state = {
-    myProfile: null,
+    first_name: "",
+    lastn_ame: "",
+    email: "",
   };
 
   componentDidMount() {
-    //   if (authStore.profile) {
-    //     // authStore.getProfile(authStore.user)
-    //     this.setState({ first_name: authStore.profile.first_name })
-    //     this.setState({ last_name: authStore.profile.last_name })
-    this.setState({ myProfile: authStore.myProfile });
-    //   }
-  }
-
-  handleLogout = () => {
+    console.log("mount profile..");
     if (authStore.user) {
-      authStore.logout();
-      this.props.navigation.navigate("Login");
+      console.log("getting profile...");
+      if (authStore.profile) {
+        this.setState({ first_name: authStore.profile.first_name });
+        this.setState({ last_name: authStore.profile.last_name });
+        this.setState({ email: authStore.profile.email });
+      }
     }
-  };
+  }
 
   handleUpdateProfile = () => {
     if (authStore.user) {
@@ -41,22 +39,15 @@ class Profile extends Component {
   };
 
   render() {
-    // if (!authStore.profile) {
-    //   return <Spinner />
-    // }
-    this.setState({ myProfile: authStore.myProfile });
-
     return (
       <Content>
         <View>
-          <ScrollView>
-            <Text>First Name : {this.state.myProfile.first_name}</Text>
-            <Text>Last Name : {this.state.myProfile.last_name}</Text>
-            <Text>Email : {this.state.myProfile.email}</Text>
-            <Button full danger onPress={this.handleUpdateProfile}>
-              <Text>Update profile</Text>
-            </Button>
-          </ScrollView>
+          <Text>First Name : {this.state.first_name}</Text>
+          <Text>Last Name : {this.state.last_name}</Text>
+          <Text>Email : {this.state.email}</Text>
+          <Button full danger onPress={this.handleUpdateProfile}>
+            <Text>Update profile</Text>
+          </Button>
         </View>
       </Content>
     );

@@ -2,7 +2,7 @@ import { decorate, observable, action, computed } from "mobx";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://192.168.100.143:80/",
+  baseURL: "http://192.168.100.143:8000/",
 });
 
 class CartStore {
@@ -32,9 +32,19 @@ class CartStore {
     }
   };
 
+  fetchOrder = async () => {
+    try {
+      let res = await instance.get("api/order/");
+      this.orders = res.data;
+      this.qtySum = this.orders.orderSum;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   fetchCartItems = async () => {
     try {
-      console.log("order id" + this.orders.id);
+      //console.log("order id" + this.orders.id);
       if (this.orders.id) {
         console.log("wait for cart items...." + this.orders.id);
         let res = await instance.get(`api/cart/${this.orders.id}`);

@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import { ImageBackground, View } from "react-native";
 
 // NativeBase Components
-import { ListItem, Card, CardItem, Thumbnail, Text, Left } from "native-base";
+import {
+  ListItem,
+  Card,
+  CardItem,
+  Thumbnail,
+  Text,
+  Left,
+  ScrollView,
+} from "native-base";
 
 // Style
 import styles from "./styles";

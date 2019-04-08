@@ -8,6 +8,7 @@ import { List, Content } from "native-base";
 // Store
 import itemStore from "../../stores/itemStore";
 import CartStore from "../../stores/cartStore";
+import authStore from "../../stores/authStore";
 
 // Component
 import TheItem from "./TheItem";
@@ -22,7 +23,10 @@ class ItemList extends Component {
   });
 
   componentDidMount() {
-    CartStore.qtySum='';
+    // CartStore.qtySum='';
+    if (authStore.user) {
+      CartStore.fetchOrder();
+    }
   }
 
   render() {

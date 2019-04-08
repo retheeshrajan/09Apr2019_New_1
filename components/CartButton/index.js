@@ -10,7 +10,7 @@ import authStore from "../../stores/authStore";
 class CartButton extends Component {
   handleCartItems = () => {
     if (authStore.user) {
-      if (CartStore.orders.id) {
+      if (CartStore.orders) {
         this.props.navigation.navigate("ItemCart");
       }
     }

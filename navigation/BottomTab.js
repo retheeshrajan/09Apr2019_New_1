@@ -5,6 +5,8 @@ import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 import LolStack from "./LolStack";
 import ProfileStack from "./ProfileStack";
 
+//import authStore from "../stores/authStore";
+
 const BottomTab = createBottomTabNavigator(
   {
     ProfileTab: ProfileStack,
@@ -18,6 +20,9 @@ const BottomTab = createBottomTabNavigator(
         if (routeName === "LolTab") {
           iconName = "profile";
           iconType = "AntDesign";
+          // if (authStore.user) {
+          //   navigation.navigate("Profile");
+          // }
         } else if (routeName === "ProfileTab") {
           iconName = "person";
           iconType = "MaterialIcons";
