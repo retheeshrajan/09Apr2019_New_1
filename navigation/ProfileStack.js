@@ -9,6 +9,7 @@ import RegisterScreen from "../components/Profile/Register";
 import UpdateProfileScreen from "../components/Profile/updateprofile";
 import MainScreen from "../components/MainPage";
 import OrderHistory from "../components/OrderHistory";
+import HistoryDetails from "../components/HistoryDetails";
 
 const ProfileStack = createStackNavigator(
   {
@@ -17,14 +18,15 @@ const ProfileStack = createStackNavigator(
     Register: RegisterScreen,
     UpdateProfile: UpdateProfileScreen,
     MainPage: MainScreen,
-    OrderHistory: OrderHistory
+    OrderHistory: OrderHistory,
+    HistoryDetails: HistoryDetails,
   },
   {
     initialRouteName: "Login",
     defaultNavigationOptions: {
-      title: "WhatTheShop"
+      title: "WhatTheShop",
     },
-    headerStyle: { backgroundColor: "#00ff00" }
+    headerStyle: { backgroundColor: "#00ff00" },
   }
 );
 
