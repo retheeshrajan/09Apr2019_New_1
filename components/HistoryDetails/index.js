@@ -27,18 +27,6 @@ class HistoryDetails extends Component {
     }
   }
 
-  handleLogout = () => {
-    console.log("HELLOOO");
-    authStore.logout(this.props.navigation);
-
-    //this.props.navigation.navigate("Login");
-  };
-
-  handleCheckOut = () => {
-    CartStore.checkoutCart();
-    this.props.navigation.navigate("ItemList");
-  };
-
   render() {
     console.log("cart item loading in history details...");
     let cartItems;
@@ -52,14 +40,7 @@ class HistoryDetails extends Component {
         ));
       }
     }
-    return (
-      <List>
-        {cartItems}
-        <Button full danger onPress={this.handleCheckOut}>
-          <Text>Checkout</Text>
-        </Button>
-      </List>
-    );
+    return <List>{cartItems}</List>;
   }
 }
 

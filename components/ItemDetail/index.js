@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { observer } from 'mobx-react'
+import React, { Component } from "react";
+import { observer } from "mobx-react";
 
 // NativeBase Components
 import {
@@ -12,54 +12,54 @@ import {
   List,
   ListItem,
   Picker,
-  Content
-} from 'native-base'
+  Content,
+} from "native-base";
 
 // Style
-import styles from './styles'
+import styles from "./styles";
 
 // Store
-import CartStore from '../../stores/cartStore'
-import authStore from '../../stores/authStore'
+import CartStore from "../../stores/cartStore";
+import authStore from "../../stores/authStore";
 
 // Components
-import CartButton from '../CartButton'
+import CartButton from "../CartButton";
 
 class ItemDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('item', {}).name,
-    headerStyle: { backgroundColor: '#abc' },
-    headerRight: <CartButton />
-  })
+    title: navigation.getParam("item", {}).name,
+    headerStyle: { backgroundColor: "#abc" },
+    headerRight: <CartButton />,
+  });
 
   handleAdd = () => {
     if (authStore.user) {
-      console.log('user - order begins')
-      let item = this.props.navigation.getParam('item', {})
-      console.log('ITEM DETAAAIL', item)
+      console.log("user - order begins");
+      let item = this.props.navigation.getParam("item", {});
+      console.log("ITEM DETAAAIL", item);
       let myitem = {
         id: item.id,
         name: item.name,
         price: item.price,
-        quantity: 1
-      }
-      console.log(`user - order begins - got items ${myitem}`)
-      CartStore.addItemToCart(myitem)
+        quantity: 1,
+      };
+      console.log(`user - order begins - got items ${myitem}`);
+      CartStore.addItemToCart(myitem);
     } else {
-      console.log('user - need login to add item')
-      this.props.navigation.navigate('Login')
+      console.log("user - need login to add item");
+      this.props.navigation.navigate("Login");
     }
-  }
+  };
 
-  render () {
-    const item = this.props.navigation.getParam('item', {})
+  render() {
+    const item = this.props.navigation.getParam("item", {});
     return (
       <Content>
         <List>
           <ListItem style={styles.center}>
             <Left>
               <Text style={styles.text}>
-                {item.name + '\n'}
+                {item.name + "\n"}
                 <Text note>{item.description}</Text>
               </Text>
             </Left>
@@ -74,8 +74,8 @@ class ItemDetail extends Component {
           </Button>
         </List>
       </Content>
-    )
+    );
   }
 }
 
-export default observer(ItemDetail)
+export default observer(ItemDetail);

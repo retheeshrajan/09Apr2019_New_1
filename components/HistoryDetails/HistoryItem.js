@@ -23,11 +23,7 @@ class HistoryItem extends Component {
         <Body>
           <Text style={{ color: "black" }}>{cartitem.quantity}</Text>
         </Body>
-        <Right>
-          <Button onPress={() => cartStore.removeItemFromCart(cartitem)}>
-            <Icon name="trash" style={{ color: "white", fontSize: 21 }} />
-          </Button>
-        </Right>
+        <Right />
       </ListItem>
     );
   }

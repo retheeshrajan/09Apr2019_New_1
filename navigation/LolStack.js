@@ -7,7 +7,7 @@ import ItemCart from "../components/ItemCart";
 import MainScreen from "../components/MainPage";
 import LoginScreen from "../components/Login";
 import OrderHistory from "../components/OrderHistory";
-import HistoryDetails from "../components/HistoryDetails";
+// import HistoryDetails from "../components/HistoryDetails";
 
 const LolStack = createStackNavigator(
   {
@@ -16,7 +16,7 @@ const LolStack = createStackNavigator(
     ItemCart: ItemCart,
     MainPage: MainScreen,
     Login: LoginScreen,
-    HistoryDetails: HistoryDetails
+    // HistoryDetails: HistoryDetails,
   },
   {
     defaultNavigationOptions: {
