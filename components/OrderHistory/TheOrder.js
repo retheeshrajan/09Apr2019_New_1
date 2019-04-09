@@ -1,8 +1,11 @@
-import React, { Component } from "react";
-import { ImageBackground, View } from "react-native";
-
+import React, { Component } from 'react'
+import { ImageBackground, View } from 'react-native'
+import Moment from 'moment'
 // NativeBase Components
 import {
+  List,
+  Body,
+  Right,
   ListItem,
   Card,
   CardItem,
@@ -10,13 +13,13 @@ import {
   Text,
   Left,
   ScrollView
-} from "native-base";
+} from 'native-base'
 
 // Style
-import styles from "./styles";
+import styles from './styles'
 
 // Navigation
-import { withNavigation } from "react-navigation";
+import { withNavigation } from 'react-navigation'
 
 class TheOrder extends Component {
   //   handlePress = () => {
@@ -25,27 +28,26 @@ class TheOrder extends Component {
   //     });
   //   };
 
-  render() {
-    const { order } = this.props;
+  render () {
+    const { order } = this.props
     return (
-      <>
-        <View style={styles.thumbnail} />
-        <ListItem button onPress={this.handlePress} style={styles.listitem}>
-          <Card style={styles.transparent}>
-            <CardItem style={styles.transparent}>
-              <Text style={styles.text}>ID : {order.id}</Text>
-              <Text note style={styles.text}>
-                Date: {order.date}
-              </Text>
-              <Text note style={styles.text}>
-                Amount: {order.orderSum}
-              </Text>
-            </CardItem>
-          </Card>
+      <List>
+        <ListItem style={styles.top}>
+          <Left>
+            <Text style={styles.text}>
+              {order.id + '\n'}
+              <Text note>Order Summary: {order.order_sum}</Text>
+            </Text>
+          </Left>
+          <Right>
+            <Text note>
+              Order Date: {Moment(order.date).format('DD-MM-YYYY')}
+            </Text>
+          </Right>
         </ListItem>
-      </>
-    );
+      </List>
+    )
   }
 }
 
-export default withNavigation(TheOrder);
+export default withNavigation(TheOrder)

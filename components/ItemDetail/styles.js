@@ -1,36 +1,40 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   text: {
-    color: "black",
+    color: 'black',
     fontSize: 15,
     marginLeft: 16,
 
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   divider: {
-    borderBottomColor: "black",
+    borderBottomColor: 'black',
     borderBottomWidth: 1
   },
   top: {
     marginLeft: 0,
-    backgroundColor: "#ffffcc"
+    backgroundColor: '#ffffcc'
+  },
+  center: {
+    marginTop: 50,
+    backgroundColor: '#ffffff'
   },
   middleText: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 17,
-    alignSelf: "center"
+    alignSelf: 'center'
   },
   addIcon: {
     fontSize: 40,
-    fontWeight: "bold",
-    color: "white"
+    fontWeight: 'bold',
+    color: 'white'
   },
   item: {
-    color: "white"
+    color: 'white'
   }
-});
+})
 
-export default styles;
+export default styles

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { ImageBackground, View } from "react-native";
+import React, { Component } from 'react'
+import { ImageBackground, View } from 'react-native'
 
 // NativeBase Components
 import {
@@ -10,23 +10,23 @@ import {
   Text,
   Left,
   ScrollView
-} from "native-base";
+} from 'native-base'
 
 // Style
-import styles from "./styles";
+import styles from './styles'
 
 // Navigation
-import { withNavigation } from "react-navigation";
+import { withNavigation } from 'react-navigation'
 
 class TheItem extends Component {
   handlePress = () => {
-    this.props.navigation.navigate("ItemDetail", {
+    this.props.navigation.navigate('ItemDetail', {
       item: this.props.item
-    });
-  };
+    })
+  }
 
-  render() {
-    const { item } = this.props;
+  render () {
+    const { item } = this.props
     return (
       <>
         <View style={styles.thumbnail} />
@@ -48,8 +48,8 @@ class TheItem extends Component {
           </Card>
         </ListItem>
       </>
-    );
+    )
   }
 }
 
-export default withNavigation(TheItem);
+export default withNavigation(TheItem)

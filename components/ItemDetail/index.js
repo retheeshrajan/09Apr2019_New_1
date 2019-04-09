@@ -56,7 +56,7 @@ class ItemDetail extends Component {
     return (
       <Content>
         <List>
-          <ListItem style={styles.top}>
+          <ListItem style={styles.center}>
             <Left>
               <Text style={styles.text}>
                 {item.name + '\n'}

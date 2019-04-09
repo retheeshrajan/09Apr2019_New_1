@@ -1,75 +1,88 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
-import { withNavigation } from "react-navigation";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
+import { withNavigation } from 'react-navigation'
 
 // NativeBase Components
-import { Text, Button, List } from "native-base";
+import { Text, Button, List, Container, Content } from 'native-base'
+import { StyleSheet } from 'react-native'
 
 // Store
-import authStore from "../../stores/authStore";
-import CartStore from "../../stores/cartStore";
+import authStore from '../../stores/authStore'
+import CartStore from '../../stores/cartStore'
 
 class MainPage extends Component {
   handleItemList = () => {
-    console.log("Products..");
+    console.log('Products..')
     if (authStore.user) {
-      this.props.navigation.navigate("ItemList");
+      this.props.navigation.navigate('ItemList')
     }
-  };
+  }
 
   handleProfile = () => {
     if (authStore.user) {
-      console.log("Profile..");
-      this.props.navigation.navigate("Profile");
+      console.log('Profile..')
+      this.props.navigation.navigate('Profile')
     }
-  };
+  }
 
   handleMyCart = () => {
-    console.log("My Cart..");
+    console.log('My Cart..')
     if (authStore.user) {
-      if (CartStore.orders.id) {
-        this.props.navigation.navigate("ItemCart");
+      if (CartStore.orders) {
+        this.props.navigation.navigate('ItemCart')
       }
     }
-  };
+  }
 
   handleLogout = () => {
-    console.log("Logout....");
+    console.log('Logout....')
     if (authStore.user) {
-      authStore.logout(this.props.navigation);
+      authStore.logout(this.props.navigation)
     }
-  };
+  }
 
   handleOrderHistory = () => {
-    console.log("Your history....");
+    console.log('Your history....')
     if (authStore.user) {
-      CartStore.fetchHistory(this.props.navigation);
+      CartStore.fetchHistory(this.props.navigation)
     }
-  };
+  }
 
-  render() {
+  render () {
     return (
-      <List>
-        <Button full success onPress={this.handleItemList}>
-          <Text>View Product List</Text>
-        </Button>
-        <Button full warning onPress={this.handleProfile}>
-          <Text>View Profile</Text>
-        </Button>
-        <Button full danger onPress={this.handleMyCart}>
-          <Text>View MyCart</Text>
-        </Button>
+      <Container style={styles.container}>
+        <Content>
+          <Button block success onPress={this.handleItemList}>
+            <Text>View Product List</Text>
+          </Button>
+          <Button block warning onPress={this.handleProfile}>
+            <Text>View Profile</Text>
+          </Button>
+          <Button block danger onPress={this.handleMyCart}>
+            <Text>View MyCart</Text>
+          </Button>
 
-        <Button full warning onPress={this.handleOrderHistory}>
-          <Text>My Order History</Text>
-        </Button>
+          <Button block info onPress={this.handleOrderHistory}>
+            <Text>My Order History</Text>
+          </Button>
 
-        <Button full danger onPress={this.handleLogout}>
-          <Text>Logout</Text>
-        </Button>
-      </List>
-    );
+          <Button block danger onPress={this.handleLogout}>
+            <Text>Logout</Text>
+          </Button>
+        </Content>
+      </Container>
+    )
   }
 }
 
-export default withNavigation(observer(MainPage));
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    flexDirection: 'row',
+    padding: 20,
+    marginTop: 100,
+    alignContent: 'center'
+  }
+})
+
+export default withNavigation(observer(MainPage))

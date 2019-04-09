@@ -1,51 +1,51 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   text: {
-    color: "blue",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: 'blue',
+    fontSize: 12,
+    fontWeight: 'bold',
     opacity: 1
   },
   divider: {
-    borderBottomColor: "black",
+    borderBottomColor: 'black',
     borderBottomWidth: 1
   },
   overlay: {
     flex: 1,
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
 
     opacity: 0.5,
-    backgroundColor: "black",
-    height: "100%",
-    width: "100%"
+    backgroundColor: 'black',
+    height: '100%',
+    width: '100%'
   },
   listitem: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
     height: 180,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   transparent: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   thumbnail: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     opacity: 1
   },
   background: {
     width: null,
     flex: 1
   }
-});
-export default styles;
+})
+export default styles
