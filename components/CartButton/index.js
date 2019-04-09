@@ -10,10 +10,13 @@ import styles from './styles'
 
 class CartButton extends Component {
   componentDidMount () {
-    if (CartStore.orders) {
-      CartStore.qtySum = CartStore.orders.order_sum
-    } else {
-      CartStore.qtySum = ' '
+    // if (CartStore.orders) {
+    //   CartStore.qtySum = CartStore.orders.order_sum
+    // } else {
+    //   CartStore.qtySum = ' '
+    // }
+    if (authStore.user) {
+      CartStore.fetchOrder()
     }
   }
 

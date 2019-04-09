@@ -35,7 +35,7 @@ class TheOrder extends Component {
         <ListItem style={styles.top}>
           <Left>
             <Text style={styles.text}>
-              {order.id + '\n'}
+              Order#:{order.id + '\n'}
               <Text note>Order Summary: {order.order_sum}</Text>
             </Text>
           </Left>
